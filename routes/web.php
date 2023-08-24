@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProposalController::class,'index'])->middleware(['auth'])->name('dashboard');
-Route::get('/proposal/create', [ProposalController::class,'create'])->middleware(['auth'])->name('proposal.create');
-Route::get('/proposal/{proposal}/edit', [ProposalController::class,'edit'])->middleware(['auth'])->name('proposal.edit');
+// Routes that are accessible only to authenticated users
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [ProposalController::class, 'index'])->name('dashboard');
+    Route::get('/proposal/create', [ProposalController::class, 'create'])->name('proposal.create');
+    Route::get('/proposal/{proposal}/edit', [ProposalController::class, 'edit'])->name('proposal.edit');
+    Route::get('/proposal/{proposal}', [ProposalController::class, 'destroy'])->name('proposal.destroy');
+    Route::get('/proposals/{proposal}/pdf', [ProposalController::class, 'generatePdf'])->name('proposal.pdf');
+    Route::get('/proposal/{proposal}/pdf', [ProposalController::class, 'show'])->name('proposal.show');
+});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proposal;
 use Illuminate\Http\Request;
+use PDF;
+
 
 class ProposalController extends Controller
 {
@@ -47,7 +49,7 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        //
+        return view('proposal.pdf', ['proposal' => $proposal]);
     }
 
     /**
@@ -58,7 +60,7 @@ class ProposalController extends Controller
      */
     public function edit(Proposal $proposal)
     {
-        return view('proposal.edit',['proposal' => $proposal]);
+        return view('proposal.edit', ['proposal' => $proposal]);
     }
 
     /**
@@ -79,8 +81,18 @@ class ProposalController extends Controller
      * @param  \App\Models\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proposal $proposal)
+    public function destroy($id)
     {
-        //
+        // dd($id);
+        $data = Proposal::find($id);
+        $data->delete();
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
+    }
+    public function generatePdf(Proposal $proposal)
+    {
+        $pdf = PDF::loadView('proposal.pdf', compact('proposal'));
+        return $pdf->download('proposal_' . $proposal->id . '.pdf');
     }
 }
