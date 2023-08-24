@@ -51,12 +51,11 @@ class ProposalController extends Controller
     {
         $logo1Url = public_path('img/aglie_courts_logo.jpg'); // Replace with the actual path to the image
         $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
-
         $data = [
+            'proposal' => $proposal,
             'logo1Url' => $logo1Url,
             'logo2Url' => $logo2Url,
         ];
-
         return view('proposal.pdf', compact('proposal', 'data'));
     }
 
@@ -109,7 +108,7 @@ class ProposalController extends Controller
             'logo2Url' => $logo2Url,
         ];
 
-        $pdf = PDF::loadView('proposal.pdf', compact('data', 'proposal'));
+        $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
         return $pdf->download('proposal_' . $proposal->id . '.pdf');
     }
 }

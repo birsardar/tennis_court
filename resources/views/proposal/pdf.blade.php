@@ -1,15 +1,17 @@
 <x-app-layout>
-    <div class="flex items-center">
-        <div class="logo1 mr-2">
-            <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($data['logo1Url'])) }}" alt="logo">
-        </div>
-        <div class="logo2">
-            <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($data['logo2Url'])) }}" alt="logo">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Proposal PDF View') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @livewire('proposal-pdf', ['proposal' => $data['proposal'], 'logo1Url' => $data['logo1Url'], 'logo2Url' => $data['logo2Url']])
+                </div>
+            </div>
         </div>
     </div>
-
-    <h1>Proposal Details</h1>
-    <p>Proposal ID: {{ $proposal->id }}
-        {{ $proposal->proposal_title }}
-        </div>
 </x-app-layout>
