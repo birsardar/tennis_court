@@ -49,7 +49,15 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        return view('proposal.pdf', ['proposal' => $proposal]);
+        $logo1Url = public_path('img/aglie_courts_logo.jpg'); // Replace with the actual path to the image
+        $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
+
+        $data = [
+            'logo1Url' => $logo1Url,
+            'logo2Url' => $logo2Url,
+        ];
+
+        return view('proposal.pdf', compact('proposal', 'data'));
     }
 
     /**
@@ -92,7 +100,16 @@ class ProposalController extends Controller
     }
     public function generatePdf(Proposal $proposal)
     {
-        $pdf = PDF::loadView('proposal.pdf', compact('proposal'));
+        $logo1Url = public_path('img/aglie_courts_logo.jpg');
+        $logo2Url = public_path('img/text_logo.jpg');
+
+        $data = [
+            'proposal' => $proposal,
+            'logo1Url' => $logo1Url,
+            'logo2Url' => $logo2Url,
+        ];
+
+        $pdf = PDF::loadView('proposal.pdf', compact('data', 'proposal'));
         return $pdf->download('proposal_' . $proposal->id . '.pdf');
     }
 }

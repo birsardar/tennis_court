@@ -1,0 +1,57 @@
+body {
+    margin: 5vh 2vh 2vh 5vh;
+    /* top right bottom left */
+    padding: 2vh;
+    font-family: sans-serif;
+}
+
+.logo1 img,
+.logo2 img {
+    align-items: center;
+    max-height: 100%;
+    /* Set the desired max height for the logos */
+}
+
+.logo1 {
+    /* float: left; */
+    width: 25%;
+    height: 13vh;
+    /* Set the width for the first logo */
+}
+
+
+
+.min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.rounded {
+    border-radius: 0.25rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.text-gray-600 {
+    color: #718096;
+}
