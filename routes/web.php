@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/proposal/{proposal}', [ProposalController::class, 'destroy'])->name('proposal.destroy');
     Route::get('/proposals/{proposal}/pdf', [ProposalController::class, 'generatePdf'])->name('proposal.pdf');
     Route::get('/proposal/{proposal}/pdf', [ProposalController::class, 'show'])->name('proposal.show');
+    Route::get('/proposal/{proposal}/send', [ProposalController::class, 'sendProposalEmail'])->name('proposal.send');
 });
 
 require __DIR__ . '/auth.php';

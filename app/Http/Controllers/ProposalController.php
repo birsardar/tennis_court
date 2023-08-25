@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proposal;
 use Illuminate\Http\Request;
+use App\Mail\ProposalMail;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 
 
@@ -110,5 +112,23 @@ class ProposalController extends Controller
 
         $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
         return $pdf->download('proposal_' . $proposal->id . '.pdf');
+    }
+
+    public function sendProposalEmail(Proposal $proposal)
+    {
+        // Get the $data array with logos and other data
+        $logo1Url = public_path('img/agile_courts_logo.jpg');
+        $logo2Url = public_path('img/text_logo.jpg');
+        $data = [
+            'proposal' => $proposal,
+            'logo1Url' => $logo1Url,
+            'logo2Url' => $logo2Url,
+        ];
+
+
+        // Send the email with the $data array
+        Mail::to('recipient@example.com')->send(new ProposalMail($proposal, $data));
+
+        return redirect()->back()->with('message', 'Proposal email sent successfully.');
     }
 }
