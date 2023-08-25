@@ -51,14 +51,14 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        $logo1Url = public_path('img/aglie_courts_logo.jpg'); // Replace with the actual path to the image
-        $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
-        $data = [
-            'proposal' => $proposal,
-            'logo1Url' => $logo1Url,
-            'logo2Url' => $logo2Url,
-        ];
-        return view('proposal.pdf', compact('proposal', 'data'));
+        // $logo1Url = public_path('img/agile.jpg'); // Replace with the actual path to the image
+        // $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
+        // $data = [
+        //     'proposal' => $proposal,
+        //     'logo1Url' => $logo1Url,
+        //     'logo2Url' => $logo2Url,
+        // ];
+        // return view('proposal.pdf', compact('proposal', 'data'));
     }
 
     /**
@@ -101,7 +101,7 @@ class ProposalController extends Controller
     }
     public function generatePdf(Proposal $proposal)
     {
-        $logo1Url = public_path('img/aglie_courts_logo.jpg');
+        $logo1Url = public_path('img/agile.jpg');
         $logo2Url = public_path('img/text_logo.jpg');
 
         $data = [
@@ -117,7 +117,7 @@ class ProposalController extends Controller
     public function sendProposalEmail(Proposal $proposal)
     {
         // Get the $data array with logos and other data
-        $logo1Url = public_path('img/agile_courts_logo.jpg');
+        $logo1Url = public_path('img/agile.jpg');
         $logo2Url = public_path('img/text_logo.jpg');
         $data = [
             'proposal' => $proposal,
@@ -125,9 +125,12 @@ class ProposalController extends Controller
             'logo2Url' => $logo2Url,
         ];
 
+        // Generate the PDF content using the livewire.proposal-pdf view
+        $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
+        $pdfContent = $pdf->output();
 
-        // Send the email with the $data array
-        Mail::to('recipient@example.com')->send(new ProposalMail($proposal, $data));
+        // Send the email with the PDF attached
+        Mail::to($proposal->send_proposal_to)->send(new ProposalMail($proposal, $data, $pdfContent));
 
         return redirect()->back()->with('message', 'Proposal email sent successfully.');
     }

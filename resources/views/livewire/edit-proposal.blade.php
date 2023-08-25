@@ -1,5 +1,12 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
+    <div class="p-4 mb-4 text-sm text-center text-green-800 rounded-lg bg-green-50" role="alert">
+        @if (session('message'))
+            <div class="text-green-500">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
     <div class="mb-4">
         <h2 class="underline text-center font-medium text-4xl">Aggrement</h2>
     </div>
@@ -123,7 +130,14 @@
 
             <div class="my-4 flex justify-center">
                 <x-button type="submit" class="bg-green-500  hover:bg-green-800 mx-3">Update Proposal</x-button>
-
+                <x-button class="bg-green-500  hover:bg-white-800 mx-3"> <a
+                        href="{{ route('proposal.send', ['proposal' => $proposal->id]) }}">Send
+                        Email</a>
+                </x-button>
+                <x-button class="bg-green-500  hover:bg-white-800 mx-3">
+                    <a href="{{ route('proposal.pdf', ['proposal' => $proposal->id]) }}" target="_blank">Export as
+                        PDF</a>
+                </x-button>
             </div>
     </form>
 </div>

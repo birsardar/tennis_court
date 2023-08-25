@@ -13,17 +13,22 @@ class ProposalMail extends Mailable
 
     public $proposal;
     public $data;
+    public $pdfContent;
 
-    public function __construct($proposal, $data)
+    public function __construct($proposal, $data, $pdfContent)
     {
         $this->proposal = $proposal;
         $this->data = $data;
+        $this->pdfContent = $pdfContent;
     }
 
     public function build()
     {
         return $this->subject('New Proposal')
-            ->view('proposal.pdf') // Use your email template view
+            ->view('emails.proposal') // Use your email template view
+            ->attachData($this->pdfContent, 'proposal.pdf', [
+                'mime' => 'application/pdf',
+            ])
             ->with([
                 'proposal' => $this->proposal,
                 'data' => $this->data,

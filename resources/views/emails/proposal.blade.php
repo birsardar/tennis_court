@@ -7,7 +7,7 @@
 
 <body>
     <h1>New Proposal Received</h1>
-    <p>Proposal ID: {{ $proposal->id }}</p>
+    <p>Please Check the attachements</p>
     <!-- Include other proposal details here -->
 </body>
 

@@ -63,13 +63,17 @@
                                                 onclick="deleteRecord(event, '{{ $proposal->customer_name }}')">
                                                 <x-button type="submit" class="destroy"> Delete </x-button>
                                             </form>
-                                            <a href="{{ route('proposal.pdf', ['proposal' => $proposal->id]) }}"
-                                                target="_blank">Export as PDF</a>
+                                            <x-button>
+                                                <a href="{{ route('proposal.pdf', ['proposal' => $proposal->id]) }}"
+                                                    target="_blank">Export as PDF</a>
+                                            </x-button>
 
-                                            <a href="{{ route('proposal.show', ['proposal' => $proposal->id]) }}"
-                                                target="_blank">Show</a>
-                                            <a href="{{ route('proposal.send', ['proposal' => $proposal->id]) }}">Send
-                                                Email</a>
+                                            {{-- <a href="{{ route('proposal.show', ['proposal' => $proposal->id]) }}"
+                                                target="_blank">Show</a> --}}
+                                            <x-button>
+                                                <a href="{{ route('proposal.send', ['proposal' => $proposal->id]) }}">Send
+                                                    Email</a>
+                                            </x-button>
                                         </div>
                                     </td>
                                 </tr>

@@ -1,10 +1,10 @@
 <div style="margin: 20px;">
     <div class='logo'>
         <div class="logo1">
-            <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($data['logo1Url'])) }}" alt="logo1">
+            <img src="{{ $data['logo1Url'] }}" alt="logo1">
         </div>
         <div class="logo2">
-            <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($data['logo2Url'])) }}" alt="logo2">
+            <img src="{{ $data['logo2Url'] }}" alt="logo2">
             <p class="sologan">CONSTRUCTION CO</p>
             <p>CELEBRATING OUR 50TH YEAR 1972-2022</p>
             <p>“QUALITY STILL EXISTS”</p>

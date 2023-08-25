@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
 
+    <div class="p-4 mb-4 text-sm text-center text-green-800 rounded-lg bg-green-50" role="alert">
+        @if (session('message'))
+            <div class="text-green-500">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-6">
