@@ -16,6 +16,7 @@ class ProposalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
 
@@ -51,14 +52,14 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        // $logo1Url = public_path('img/agile.jpg'); // Replace with the actual path to the image
-        // $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
-        // $data = [
-        //     'proposal' => $proposal,
-        //     'logo1Url' => $logo1Url,
-        //     'logo2Url' => $logo2Url,
-        // ];
-        // return view('proposal.pdf', compact('proposal', 'data'));
+        $logo1Url = public_path('img/agile.jpg'); // Replace with the actual path to the image
+        $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
+        $data = [
+            'proposal' => $proposal,
+            'logo1Url' => $logo1Url,
+            'logo2Url' => $logo2Url,
+        ];
+        return view('proposal.pdf', compact('proposal', 'data'));
     }
 
     /**

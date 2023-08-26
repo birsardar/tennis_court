@@ -28,7 +28,7 @@ class Proposal extends Model
         'conditions',
         'guarantee',
         'credit',
-        'signature',
+        'signatureData',
     ];
 
     public function user()

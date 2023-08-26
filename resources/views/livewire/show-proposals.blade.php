@@ -68,8 +68,8 @@
                                                     target="_blank">Export as PDF</a>
                                             </x-button>
 
-                                            {{-- <a href="{{ route('proposal.show', ['proposal' => $proposal->id]) }}"
-                                                target="_blank">Show</a> --}}
+                                            <a href="{{ route('proposal.show', ['proposal' => $proposal->id]) }}"
+                                                target="_blank">Show</a>
                                             <x-button>
                                                 <a href="{{ route('proposal.send', ['proposal' => $proposal->id]) }}">Send
                                                     Email</a>
