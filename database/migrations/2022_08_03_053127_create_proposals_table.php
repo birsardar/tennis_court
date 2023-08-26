@@ -33,6 +33,7 @@ class CreateProposalsTable extends Migration
             $table->text('conditions')->nullable();
             $table->text('guarantee')->nullable();
             $table->text('credit')->nullable();
+            $table->string('signature')->nullable();
             $table->timestamps();
         });
     }

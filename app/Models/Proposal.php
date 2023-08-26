@@ -28,9 +28,11 @@ class Proposal extends Model
         'conditions',
         'guarantee',
         'credit',
+        'signature',
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
