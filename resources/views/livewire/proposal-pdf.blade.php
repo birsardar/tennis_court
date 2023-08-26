@@ -45,7 +45,9 @@
         (3) tennis courts of test with respect to the following terms and specifications
     </p>
 </div>
-
+<div class="logo1">
+    <img src="{{ $data['imagePath'] }}" alt="logo1">
+</div>
 <style>
     .logo {
         display: flex;

@@ -54,10 +54,12 @@ class ProposalController extends Controller
     {
         $logo1Url = public_path('img/agile.jpg'); // Replace with the actual path to the image
         $logo2Url = public_path('img/text_logo.jpg'); // Replace with the actual path to the image
+        $imagePath = public_path($proposal->signatureData);
         $data = [
             'proposal' => $proposal,
             'logo1Url' => $logo1Url,
             'logo2Url' => $logo2Url,
+            'imagePath' => $imagePath,
         ];
         return view('proposal.pdf', compact('proposal', 'data'));
     }
@@ -112,11 +114,13 @@ class ProposalController extends Controller
     {
         $logo1Url = public_path('img/agile.jpg');
         $logo2Url = public_path('img/text_logo.jpg');
+        $imagePath = public_path($proposal->signatureData);
 
         $data = [
             'proposal' => $proposal,
             'logo1Url' => $logo1Url,
             'logo2Url' => $logo2Url,
+            'imagePath' => $imagePath,
         ];
 
         $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
@@ -128,10 +132,12 @@ class ProposalController extends Controller
         // Get the $data array with logos and other data
         $logo1Url = public_path('img/agile.jpg');
         $logo2Url = public_path('img/text_logo.jpg');
+        $imagePath = public_path($proposal->signatureData);
         $data = [
             'proposal' => $proposal,
             'logo1Url' => $logo1Url,
             'logo2Url' => $logo2Url,
+            'imagePath' => $imagePath,
         ];
 
         // Generate the PDF content using the livewire.proposal-pdf view
