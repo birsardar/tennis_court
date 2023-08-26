@@ -1,4 +1,4 @@
-<div style="margin: 20px;">
+{{-- <div style="margin: 20px;">
     <div class='logo'>
         <div class="logo1">
             <img src="{{ $data['logo1Url'] }}" alt="logo1">
@@ -9,12 +9,12 @@
             <p>CELEBRATING OUR 50TH YEAR 1972-2022</p>
             <p>“QUALITY STILL EXISTS”</p>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="agreement">
-        <h2>Agreement</h2>
-    </div>
-
+<div class="agreement">
+    <h2>Agreement</h2>
+</div>
+<div class="my-4">
     <div class="table-content">
         <table>
             <colgroup>
@@ -45,14 +45,37 @@
         (3) tennis courts of test with respect to the following terms and specifications
     </p>
 </div>
-<div class="logo1">
+<div class="my-4 overseas-installation">
+    <h2>CONDITIONS FOR OVERSEAS INSTALLATIONS</h2>
+    @foreach ($proposal->overseas_conditions as $condition)
+        <div class="condition">
+            @if ($condition['selected'] == 'Yes')
+                <h3>{{ str_replace('_________________', $condition['input_value'], $condition['title']) }}</h3>
+            @endif
+        </div>
+    @endforeach
+</div>
+
+
+
+
+{{-- <div class="logo1">
     <img src="{{ $data['imagePath'] }}" alt="logo1">
+</div> --}}
+
+
 </div>
 <style>
     .logo {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        text-decoration: underline;
+
     }
 
     .logo1 {
@@ -123,9 +146,13 @@
     }
 
     .agreement-page {
-        margin: 10px 10px;
-        padding: 2px;
+        /* margin: 10px 10px;
+        padding: 2px; */
         margin-top: 7vh;
         width: 100%;
+    }
+
+    .overseas-installation {
+        margin-top: 7vh;
     }
 </style>

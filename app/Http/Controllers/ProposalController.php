@@ -61,6 +61,7 @@ class ProposalController extends Controller
             'logo2Url' => $logo2Url,
             'imagePath' => $imagePath,
         ];
+        // dd($proposal);
         return view('proposal.pdf', compact('proposal', 'data'));
     }
 
