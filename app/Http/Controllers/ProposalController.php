@@ -93,9 +93,17 @@ class ProposalController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
-        $data = Proposal::find($id);
-        $data->delete();
+        $proposal = Proposal::findOrFail($id);
+
+        // Delete the signature image file if it exists
+        if ($proposal->signatureData) {
+            $imagePath = public_path($proposal->signatureData);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $proposal->delete();
         return response()->json([
             'success' => 'Record has been deleted successfully!'
         ]);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Http\Request;
+
 use App\Models\Proposal;
 use Livewire\Component;
 
@@ -14,6 +16,7 @@ class EditProposal extends Component
     public $customer_name;
     public $construction_of;
     public $send_proposal_to;
+    public $signatureData = ''; // Initialize the signature data property
     public $overseas_conditions = [
         'round_trip_airfare' => [
             'title' => 'The Customer is responsible for round trip airfare to _________________',
@@ -196,7 +199,7 @@ class EditProposal extends Component
             'selected' => false,
         ],
         'install_agile' => [
-            'title' => "The Contractor will install the AGILE TURF Surface, green as per manufacturer's specifications, including approximately (18) tons of green sand. 
+            'title' => "The Contractor will install the AGILE TURF Surface, green as per manufacturer's specifications, including approximately (18) tons of green sand.
             AGILE TURF has a five year manufacturer's warranty.",
             'input' => false,
             'input_value' => "",
@@ -464,7 +467,8 @@ class EditProposal extends Component
         'construction_of' => 'required',
     ];
 
-    public function mount($proposal){
+    public function mount($proposal)
+    {
         $this->proposal = $proposal;
 
         $this->work_to_be_performed = $proposal->work_to_be_performed;
@@ -473,26 +477,37 @@ class EditProposal extends Component
         $this->construction_of = $proposal->construction_of;
         $this->send_proposal_to = $proposal->send_proposal_to;
 
-        $this->setValues($proposal->overseas_conditions,"overseas_conditions");
-        $this->setValues($proposal->base,"base");
-        $this->setValues($proposal->court_preparation,"court_preparation");
-        $this->setValues($proposal->surfacing,"surfacing");
-        $this->setValues($proposal->fence,"fence");
-        $this->setValues($proposal->lights,"lights");
-        $this->setValues($proposal->court_accessories,"court_accessories");
-        $this->setValues($proposal->fee,"fee");
-        $this->setValues($proposal->provisions,"provisions");
-        $this->setValues($proposal->conditions,"conditions");
-        $this->setValues($proposal->guarantee,"guarantee");
-        $this->setValues($proposal->credit,"credit");
+        $this->setValues($proposal->overseas_conditions, "overseas_conditions");
+        $this->setValues($proposal->base, "base");
+        $this->setValues($proposal->court_preparation, "court_preparation");
+        $this->setValues($proposal->surfacing, "surfacing");
+        $this->setValues($proposal->fence, "fence");
+        $this->setValues($proposal->lights, "lights");
+        $this->setValues($proposal->court_accessories, "court_accessories");
+        $this->setValues($proposal->fee, "fee");
+        $this->setValues($proposal->provisions, "provisions");
+        $this->setValues($proposal->conditions, "conditions");
+        $this->setValues($proposal->guarantee, "guarantee");
+        $this->setValues($proposal->credit, "credit");
     }
 
-    public function render(){
+    public function render()
+    {
         return view('livewire.edit-proposal');
     }
 
-    public function submit(){
+    public function submit()
+    {
         $this->validate();
+        if ($this->proposal->signatureData) {
+            unlink(public_path($this->proposal->signatureData));
+        }
+
+        // Save the signature image data to a file if needed
+        $signatureImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $this->signatureData));
+        $imagePath = 'images/' . uniqid() . '.png'; // Adjust the path as needed
+        file_put_contents(public_path($imagePath), $signatureImage);
+        // dd($imagePath);
 
         $this->proposal->update([
             'work_to_be_performed' => $this->work_to_be_performed,
@@ -512,21 +527,25 @@ class EditProposal extends Component
             'conditions' => $this->conditions,
             'guarantee' => $this->guarantee,
             'credit' => $this->credit,
+            'signatureData' => $imagePath, // Store the image path in the database
         ]);
 
-        $this->dispatchBrowserEvent('alert', 
-                ['type' => 'success',  'message' => 'Proposal Updated Successfully!', 'title' => 'Success']);
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success',  'message' => 'Proposal Updated Successfully!', 'title' => 'Success']
+        );
     }
 
-    public function setValues($array,$key_name){
-        foreach($array as $key => $value){
+    public function setValues($array, $key_name)
+    {
+        foreach ($array as $key => $value) {
             $this->$key_name[$key]['selected'] = $value['selected'];
-            if($value['input']){
+            if ($value['input']) {
                 $this->$key_name[$key]['input_value'] = $value['input_value'];
             }
 
-            if(isset($value['multiple_inputs']) && count($value['multiple_inputs']) > 0){
-                foreach($value['multiple_inputs'] as $multi_key => $multi_input){
+            if (isset($value['multiple_inputs']) && count($value['multiple_inputs']) > 0) {
+                foreach ($value['multiple_inputs'] as $multi_key => $multi_input) {
                     $this->$key_name[$key]['multiple_inputs'][$multi_key]['value'] = $multi_input['value'];
                 }
             }

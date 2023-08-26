@@ -9,6 +9,7 @@ class ProposalPdf extends Component
 {
     public $proposal;
     public $logo1Url;
+    public $signatureData = ''; // Initialize the signature data property
     public $logo2Url;
 
     public function render()

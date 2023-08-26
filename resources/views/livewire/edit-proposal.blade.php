@@ -127,6 +127,16 @@
                     <span class="error text-red-500">{{ $message }}</span>
                 @enderror
             </div>
+            <Label>
+                Signature`
+            </Label>
+            <div class="my-4">
+                <div class="my-4">
+                    <canvas id="signatureCanvas" width="400" height="200" class="border rounded"></canvas>
+                    <input type="hidden" name="signatureData" id="signatureDataInput" wire:model="signatureData">
+                </div>
+            </div>
+
 
             <div class="my-4 flex justify-center">
                 <x-button type="submit" class="bg-green-500  hover:bg-green-800 mx-3">Update Proposal</x-button>
@@ -141,3 +151,36 @@
             </div>
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+<script>
+    const canvas = document.getElementById('signatureCanvas');
+
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    canvas.addEventListener('mousedown', () => {
+        isDrawing = true;
+        ctx.beginPath();
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!isDrawing) return;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = 'black';
+
+        ctx.lineTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect()
+            .top);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect()
+            .top);
+
+        // Update the Livewire property with the signature data
+        @this.signatureData = canvas.toDataURL();
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        isDrawing = false;
+    });
+</script>
