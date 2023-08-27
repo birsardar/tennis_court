@@ -116,14 +116,13 @@ class ProposalController extends Controller
         $logo1Url = public_path('img/agile.jpg');
         $logo2Url = public_path('img/text_logo.jpg');
         $imagePath = public_path($proposal->signatureData);
-
+        // dd($imagePath);
         $data = [
             'proposal' => $proposal,
             'logo1Url' => $logo1Url,
             'logo2Url' => $logo2Url,
             'imagePath' => $imagePath,
         ];
-
         $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
         return $pdf->download('proposal_' . $proposal->id . '.pdf');
     }
@@ -143,6 +142,7 @@ class ProposalController extends Controller
 
         // Generate the PDF content using the livewire.proposal-pdf view
         $pdf = PDF::loadView('livewire.proposal-pdf', compact('data', 'proposal'));
+        $pdf->getDomPDF()->getOptions()->set('isPhpEnabled', true);
         $pdfContent = $pdf->output();
 
         // Send the email with the PDF attached
