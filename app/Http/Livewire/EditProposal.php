@@ -17,6 +17,20 @@ class EditProposal extends Component
     public $construction_of;
     public $send_proposal_to;
     public $signatureData = ''; // Initialize the signature data property
+    public $showoverseas = false;
+    public $showbase = false;
+    public $showcourt = false;
+    public $showsurfacing = false;
+    public $showfence = false;
+    public $showlights = false;
+    public $showcourtaccessories = false;
+    public $showfee = false;
+    public $showprovisions = false;
+    public $showconditions = false;
+    public $showguarantee = false;
+    public $showcredit = false;
+    public $showsignature = false;
+
     public $overseas_conditions = [
         'round_trip_airfare' => [
             'title' => 'The Customer is responsible for round trip airfare to _________________',
@@ -476,7 +490,6 @@ class EditProposal extends Component
         $this->customer_name = $proposal->customer_name;
         $this->construction_of = $proposal->construction_of;
         $this->send_proposal_to = $proposal->send_proposal_to;
-
         $this->setValues($proposal->overseas_conditions, "overseas_conditions");
         $this->setValues($proposal->base, "base");
         $this->setValues($proposal->court_preparation, "court_preparation");
@@ -489,6 +502,16 @@ class EditProposal extends Component
         $this->setValues($proposal->conditions, "conditions");
         $this->setValues($proposal->guarantee, "guarantee");
         $this->setValues($proposal->credit, "credit");
+        $this->showoverseas = $proposal->showoverseas;
+        $this->showbase = $proposal->showbase;
+        $this->showcourt = $proposal->showcourt;
+        $this->showsurfacing = $proposal->showsurfacing;
+        $this->showfence = $proposal->showfence;
+        $this->showlights = $proposal->showlights;
+        $this->showcourtaccessories = $proposal->showcourtaccessories;
+        $this->showfee = $proposal->showfee;
+        $this->showprovisions = $proposal->showprovisions;
+        $this->showconditions = $proposal->showconditions;
     }
 
     public function render()
@@ -508,7 +531,7 @@ class EditProposal extends Component
         $imagePath = 'images/' . uniqid() . '.png'; // Adjust the path as needed
         file_put_contents(public_path($imagePath), $signatureImage);
         // dd($imagePath);
-
+        // dd($this->showoverseas);
         $this->proposal->update([
             'work_to_be_performed' => $this->work_to_be_performed,
             'customer' => $this->customer,
@@ -516,18 +539,30 @@ class EditProposal extends Component
             'construction_of' => $this->construction_of,
             'send_proposal_to' => $this->send_proposal_to,
             'overseas_conditions' => $this->overseas_conditions,
+            'showoverseas' => $this->showoverseas,
             'base' => $this->base,
+            'showbase' => $this->showbase,
             'court_preparation' => $this->court_preparation,
+            'showcourt' => $this->showcourt,
             'surfacing' => $this->surfacing,
+            'showsurfacing' => $this->showsurfacing,
             'fence' => $this->fence,
+            'showfence' => $this->showfence,
             'lights' => $this->lights,
+            'showlights' => $this->showlights,
             'court_accessories' => $this->court_accessories,
+            'showcourtaccessories' => $this->showcourtaccessories,
             'fee' => $this->fee,
+            'showfee' => $this->showfee,
             'provisions' => $this->provisions,
+            'showprovisions' => $this->showprovisions,
             'conditions' => $this->conditions,
+            'showconditions' => $this->showconditions,
             'guarantee' => $this->guarantee,
             'credit' => $this->credit,
+
             'signatureData' => $imagePath, // Store the image path in the database
+
         ]);
 
         $this->dispatchBrowserEvent(

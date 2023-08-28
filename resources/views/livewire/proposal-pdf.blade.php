@@ -46,92 +46,103 @@
         </p>
     </div>
     <div class="my-4 overseas-installation">
-        <h2>CONDITIONS FOR OVERSEAS INSTALLATIONS</h2>
-        @foreach ($proposal->overseas_conditions as $condition)
-            <div class="condition">
-                @if ($condition['selected'] == 'Yes')
-                    <p>{{ str_replace('_________________', $condition['input_value'], $condition['title']) }}</p>
-                @endif
-            </div>
-        @endforeach
+        @if ($proposal->showoverseas == true)
+            <h2>CONDITIONS FOR OVERSEAS INSTALLATIONS</h2>
+            @foreach ($proposal->overseas_conditions as $condition)
+                <div class="condition">
+                    @if ($condition['selected'] == 'Yes')
+                        <p>{{ str_replace('_________________', $condition['input_value'], $condition['title']) }}</p>
+                    @endif
+                </div>
+            @endforeach
+        @endif
     </div>
 
     <div class="my-4 baseclass">
-        <h2>BASE</h2>
-        @foreach ($proposal->base as $data)
-            <div class="base">
-                @if ($data['selected'] == 'Yes')
-                    <p>{{ str_replace('_____________', $data['input_value'], $data['title']) }}</p>
-                @endif
-            </div>
-        @endforeach
-    </div>
-    <div class="my-4">
-        <h2>Fence</h2>
-        @foreach ($proposal->fence as $item)
-            @if ($item['selected'] === true)
-                <div class="fence-item">
-                    @if (isset($item['multiple_inputs']) && count($item['multiple_inputs']) > 0)
-                        <p>
-                            The Contractor will install 10’’ high fence; zinc coated Heavy Duty steel wire chain
-                            link with a green or
-                            black vinyl coating,
-                            @foreach ($item['multiple_inputs'] as $input)
-                                {{ $input['value'] }}{{ $input['title'] }}
-                            @endforeach
-                        </p>
-                        {{-- <p>{{ $input['value'] }}{{ $input['title'] }}</p> --}}
-                    @else
-                        <p>{{ str_replace('________', '', $item['title']) }}</p>
+        @if ($proposal->showbase == true)
+            <h2>BASE</h2>
+            @foreach ($proposal->base as $data)
+                <div class="base">
+                    @if ($data['selected'] == 'Yes')
+                        <p>{{ str_replace('_____________', $data['input_value'], $data['title']) }}</p>
                     @endif
                 </div>
-            @endif
-        @endforeach
+            @endforeach
+        @endif
     </div>
-
-    <div class="my-4 lightclass">
-        <h2>LIGHTS</h2>
-        @foreach ($proposal->lights as $lights)
-            <div class="light">
-                @if ($lights['selected'] == 'Yes')
-                    <div class="light-item">
-                        @if (isset($lights['multiple_inputs']) && count($lights['multiple_inputs']) > 0)
+    <div class="my-4">
+        @if ($proposal->showfence == true)
+            <h2>Fence</h2>
+            @foreach ($proposal->fence as $item)
+                @if ($item['selected'] === true)
+                    <div class="fence-item">
+                        @if (isset($item['multiple_inputs']) && count($item['multiple_inputs']) > 0)
                             <p>
-                                The Contractor will furnish and install () BLS () watt LED fixtures, mounted on
-                                @foreach ($lights['multiple_inputs'] as $input)
-                                    {{ $input['value'] }}
-                                    {{-- {{ $input['title'] }} --}}
+                                The Contractor will install 10’’ high fence; zinc coated Heavy Duty steel wire chain
+                                link with a green or
+                                black vinyl coating,
+                                @foreach ($item['multiple_inputs'] as $input)
+                                    {{ $input['value'] }}{{ $input['title'] }}
                                 @endforeach
-                                ft . high
-                                aluminum/steel light poles.
                             </p>
                             {{-- <p>{{ $input['value'] }}{{ $input['title'] }}</p> --}}
                         @else
-                            <p>{{ str_replace('________', '', $lights['title']) }}</p>
+                            <p>{{ str_replace('________', '', $item['title']) }}</p>
                         @endif
                     </div>
                 @endif
-        @endforeach
+            @endforeach
+        @endif
+    </div>
+    <div class="my-4 lightclass">
+        @if ($proposal->showlights == true)
+            <h2>LIGHTS</h2>
+            @foreach ($proposal->lights as $lights)
+                <div class="light">
+                    @if ($lights['selected'] == 'Yes')
+                        <div class="light-item">
+                            @if (isset($lights['multiple_inputs']) && count($lights['multiple_inputs']) > 0)
+                                <p>
+                                    The Contractor will furnish and install () BLS () watt LED fixtures, mounted on
+                                    @foreach ($lights['multiple_inputs'] as $input)
+                                        {{ $input['value'] }}
+                                        {{-- {{ $input['title'] }} --}}
+                                    @endforeach
+                                    ft . high
+                                    aluminum/steel light poles.
+                                </p>
+                                {{-- <p>{{ $input['value'] }}{{ $input['title'] }}</p> --}}
+                            @else
+                                <p>{{ str_replace('________', '', $lights['title']) }}</p>
+                            @endif
+                        </div>
+                    @endif
+            @endforeach
+        @endif
     </div>
     <div class="my-4 provision">
-        <h2>PROVISIONS</h2>
-        @foreach ($proposal->provisions as $provision)
-            <div class="provision-item">
-                @if ($provision['selected'] == 'Yes')
-                    <p>{{ str_replace('_________________', $provision['input_value'], $provision['title']) }}</p>
-                @endif
-            </div>
-        @endforeach
+        @if ($proposal->showprovisions == true)
+            <h2>PROVISIONS</h2>
+            @foreach ($proposal->provisions as $provision)
+                <div class="provision-item">
+                    @if ($provision['selected'] == 'Yes')
+                        <p>{{ str_replace('_________________', $provision['input_value'], $provision['title']) }}</p>
+                    @endif
+                </div>
+            @endforeach
+        @endif
     </div>
     <div class="my-4">
-        <h2>CONDITIONS</h2>
-        @foreach ($proposal->conditions as $condition)
-            <div class="condition-item">
-                @if ($condition['selected'] == 'Yes')
-                    <p>{{ str_replace('_________________', $condition['input_value'], $condition['title']) }}</p>
-                @endif
-            </div>
-        @endforeach
+        @if ($proposal->showconditions == true)
+            <h2>CONDITIONS</h2>
+            @foreach ($proposal->conditions as $condition)
+                <div class="condition-item">
+                    @if ($condition['selected'] == 'Yes')
+                        <p>{{ str_replace('_________________', $condition['input_value'], $condition['title']) }}</p>
+                    @endif
+                </div>
+            @endforeach
+        @endif
     </div>
     <div class=" my-4 signatureclass">
         <h3>Agile Courts Construction Company, Inc.</h3>

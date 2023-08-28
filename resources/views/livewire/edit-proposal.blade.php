@@ -127,14 +127,29 @@
                     <span class="error text-red-500">{{ $message }}</span>
                 @enderror
             </div>
-            <Label>
-                Signature`
-            </Label>
             <div class="my-4">
-                <div class="my-4">
-                    <canvas id="signatureCanvas" width="400" height="200" class="border rounded"></canvas>
-                    <input type="hidden" name="signatureData" id="signatureDataInput" wire:model="signatureData">
-                </div>
+                <x-label> SHOW DATA IN PDF</x-label>
+                <input type="checkbox" name="showoverseas" wire:model="showoverseas" {{ $proposal->showoverseas == true ? '' : 'checked' }}> Overseas Conditions
+                <input type="checkbox" name="showbase" wire:model="showbase" value="" {{ $proposal->showbase ? 'checked' : '' }}> Base
+                <input type="checkbox" name="showcourt" wire:model="showcourt" value="" {{ $proposal->showcourt ? 'checked' : '' }}> Court Preparation
+                <input type="checkbox" name="showsurfacing" wire:model="showsurfacing" value="" {{ $proposal->showsurfacing ? 'checked' : '' }}> Surfacing
+                <input type="checkbox" name="showfence" wire:model="showfence" value="" {{ $proposal->showfence ? 'checked' : '' }}> Fence
+                <input type="checkbox" name="showlights" wire:model="showlights" value="" {{ $proposal->showlights ? 'checked' : '' }}> Lights
+                <input type="checkbox" name="showfee" wire:model="showfee" value="" {{ $proposal->showfee ? 'checked' : '' }}> Fee
+                <input type="checkbox" name="showprovisions" wire:model="showprovisions" value="" {{ $proposal->showprovisions ? 'checked' : '' }}> Provisions
+                <input type="checkbox" name="showconditions" wire:model="showconditions" value="" {{ $proposal->showconditions ? 'checked' : '' }}> Conditions
+
+
+
+
+            </div>
+            <div class="my-4">
+                <x-label>
+                    Signature`
+                </x-label>
+                <canvas id="signatureCanvas" width="400" height="200" class="border rounded"></canvas>
+                <input type="hidden" name="signatureData" id="signatureDataInput" wire:model="signatureData">
+
             </div>
 
 
