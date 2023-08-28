@@ -10,7 +10,6 @@
             <p>“QUALITY STILL EXISTS”</p>
         </div>
     </div>
-
     <div class="agreement">
         <h2>Agreement</h2>
     </div>
@@ -57,7 +56,6 @@
             @endforeach
         @endif
     </div>
-
     <div class="my-4 baseclass">
         @if ($proposal->showbase == true)
             <h2>BASE</h2>
